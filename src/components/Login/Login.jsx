@@ -8,6 +8,7 @@ function Login() {
     email: '',
     password: ''
   });
+  const [userType, setUserType] = useState('user'); // 'user' by default
   const navigate = useNavigate();
   const [errors, setError] = useState('');
 
@@ -15,30 +16,34 @@ function Login() {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const validationErrors = LoginAuth(values);
     setError(validationErrors);
-  
+
     if (validationErrors.email === '' && validationErrors.password === '') {
       try {
-        const res = await axios.post('http://localhost:8080/api/auth/login', values);
+        const res = await axios.post('http://localhost:8080/api/auth/login', {
+          ...values,
+          userType: userType // Include userType in the request payload
+        });
+
         if (res.data.Status === 'Success') {
-// Assuming the server provides the user ID in the response
-if (res.data.Status === 'Success') {
-  if (values.email === 'admin' && values.password === 'admin') {
-    localStorage.setItem('authenticatedUser', false);
-    localStorage.setItem('authenticatedAdmin', true);
-  } else {
-    localStorage.setItem('authenticatedUser', true)
-  }
-}
-if (values.email === 'admin' && values.password === 'admin') {
-            navigate('/academy');
-          } else {
-            navigate('/viewacademy');
+          if (values.email === 'admin' && values.password === 'admin') {
+            if (userType === 'admin') {
+              localStorage.setItem('authenticatedUser', false);
+              localStorage.setItem('authenticatedAdmin', true);
+              alert("Admin Login Success");
+            } else {
+              localStorage.setItem('authenticatedUser', true);
+              alert("User Login Success");
+            }
           }
-        } 
+        }
       } catch (err) {
         console.log(err);
         alert("Invalid user click ok to register");
@@ -79,6 +84,26 @@ if (values.email === 'admin' && values.password === 'admin') {
               />
               {errors.password && <span className='text-danger'>{errors.password}</span>}
             </div>
+            <div className='col-12 mt-3'  >
+                <input 
+                  type='radio'
+                  id='user'
+                  name='userType'
+                  value='user'
+                  checked={userType === 'user'}
+                  onChange={handleUserTypeChange}
+                />
+                <label htmlFor='user'>User</label>
+                <input
+                  type='radio'
+                  id='admin'
+                  name='userType'
+                  value='admin'
+                  checked={userType === 'admin'}
+                  onChange={handleUserTypeChange}
+                />
+                <label htmlFor='admin'>Admin</label>
+              </div><br></br>
             <div className='row'>
               <div className='col-4'>
                 <button type='submit' id='loginButton' className='btn btn-success w-100 rounded-0'>
@@ -86,15 +111,11 @@ if (values.email === 'admin' && values.password === 'admin') {
                 </button>
               </div>
               <div className='col-4'>
-                <div className='mt-1 text-center'>
-                  <p>New User/admin?</p>
-                </div>
-              </div>
-              <div className='col-4'>
                 <Link to='/signup' type='button' id='signupLink' className='btn btn-primary rounded-0'>
                   Sign up
                 </Link>
               </div>
+           
               <Outlet />
             </div>
           </form>

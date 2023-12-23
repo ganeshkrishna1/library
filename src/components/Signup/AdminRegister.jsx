@@ -3,13 +3,13 @@ import axios from 'axios';
 import SignupAuth from '../Auth/SignupAuth';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
-function Signup() {
+function AdminRegister() {
   const [values, setValues] = useState({
-    userRole:'user',
     email: '',
     password: '',
     username: '',
     mobileNumber: '',
+    userRole: '', // Use a single string to store selected role
     confirmPassword: ''
   });
 
@@ -31,7 +31,8 @@ function Signup() {
       validationErrors.password === '' &&
       validationErrors.username === '' &&
       validationErrors.mobileNumber === '' &&
-      validationErrors.confirmPassword === ''
+      validationErrors.confirmPassword === '' &&
+      validationErrors.userRole === ''
     ) {
       try {
         // eslint-disable-next-line
@@ -46,12 +47,29 @@ function Signup() {
   return (
     <>
       <div className='d-flex justify-content-center align-items-center p-4 w-100 signupHead'>
-        <strong>User Self Register</strong>
+        <strong>Register</strong>
       </div>
       <br />
       <div className='d-flex justify-content-center align-items-center vh-90 SignupPage'>
         <div className='p-1 rounded w-25 signupForm'>
           <form onSubmit={handleSubmit}>
+            <div className='mb-3'>
+              {/* Dropdown for selecting role */}
+              <label>
+                Select Role:
+                <select
+                  name='userRole'
+                  value={values.userRole}
+                  onChange={handleInput}
+                  className='form-control rounded-0'
+                >
+                  <option value='' disabled>Select a role</option>
+                  <option value='admin'>Admin</option>
+                  <option value='user'>User</option>
+                </select>
+              </label>
+              {errors.userRole && <span className='text-danger'>{errors.userRole}</span>}
+            </div>
             <div className='mb-3'>
               <input
                 type='email'
@@ -135,4 +153,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default AdminRegister;
