@@ -44,7 +44,7 @@ function Login() {
             // User authentication logic
             localStorage.setItem('authenticatedUser', true);
             localStorage.setItem('authenticatedAdmin', false);
-            alert("User Login Success");
+            navigate('/home');
           }
         } else {
           // Authentication failed

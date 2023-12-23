@@ -1,5 +1,6 @@
 import Signup from "./components/Signup/Signup"
 import Login from "./components/Login/Login"
+import WelcomePage from "./components/Home/Home"
 import AdminRegister from "./components/Signup/AdminRegister"
 import "./components/Signup/Signup.css"
 import "./components/Login/Login.css"
@@ -12,6 +13,7 @@ function App() {
           <Route path='/' element={<Signup />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
           <Route path='/login' element={<Login />}></Route>
+          <Route path='/home' element={<WelcomePage />}></Route>
           <Route path='/adminregister' element={<AdminRegister />}></Route>
         </Routes>
     </BrowserRouter>
