@@ -1,0 +1,25 @@
+.SignupPage{
+    background-color: #D3C0C8;
+    height: 100vh;
+  }
+
+.signupHead{
+    background-color: #400000;       
+  }
+  
+.signupHead strong {
+    color: white;
+    font-size: 2rem;
+  }
+#username{
+    width: 100%;
+}
+#mobileNumber{
+    width: 100%;
+}
+#confirmPassword{
+    width: 100%;
+}
+#username{
+    width: 100%;
+}
