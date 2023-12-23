@@ -15,12 +15,17 @@
     width: 100%;
     
   }
+
   
   #password {
     width: 100%;
   }
   #loginButton {
     width: auto;
+  }
+  #logout
+  {
+    margin-left: 1000%;
   }
   #signupLink {
     width: auto;

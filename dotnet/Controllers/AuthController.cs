@@ -53,37 +53,49 @@ namespace Library.Controllers
             }
         }
         [HttpPost("login")]
-        public IActionResult Login(LoginModel loginModel)
+public IActionResult Login(LoginModel loginModel)
+{
+    try
+    {
+        string query = "SELECT * FROM Login WHERE email = @email AND password = @password";
+
+        using (SqlCommand command = new SqlCommand(query, _connection))
         {
-            try
+            command.Parameters.AddWithValue("@email", loginModel.email);
+            command.Parameters.AddWithValue("@password", loginModel.password);
+            _connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows)
             {
-                string query = "SELECT * FROM Login WHERE email = @email AND password = @password";
+                reader.Read();
+                string userRole = reader["userRole"].ToString();
 
-                using (SqlCommand command = new SqlCommand(query, _connection))
+                // Check if the provided user type matches the actual user type
+                if (userRole.Equals(loginModel.userRole, StringComparison.OrdinalIgnoreCase))
                 {
-                    command.Parameters.AddWithValue("@email", loginModel.email);
-                    command.Parameters.AddWithValue("@password", loginModel.password);
-                    _connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.HasRows)
-                    {
-                        reader.Read();
-                        return Ok(new { Status = "Success" });
-                    }
-                    else
-                    {
-                        _connection.Close();
-                        return BadRequest(new { Status = "Error", Error = "Wrong Email or Password" });
-                    }
+                    _connection.Close();
+                    return Ok(new { Status = "Success" });
+                }
+                else
+                {
+                    _connection.Close();
+                    return BadRequest(new { Status = "Error", Error = "Invalid user type" });
                 }
             }
-            catch (SqlException ex)
+            else
             {
-                Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while logging in");
+                _connection.Close();
+                return BadRequest(new { Status = "Error", Error = "Wrong Email or Password" });
             }
         }
+    }
+    catch (SqlException ex)
+    {
+        Console.WriteLine(ex);
+        return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while logging in");
+    }
+}
 
 
     }

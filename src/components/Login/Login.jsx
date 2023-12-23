@@ -8,7 +8,7 @@ function Login() {
     email: '',
     password: ''
   });
-  const [userType, setUserType] = useState('user'); // 'user' by default
+  const [userRole, setUserRole] = useState('user'); // 'user' by default
   const navigate = useNavigate();
   const [errors, setError] = useState('');
 
@@ -16,8 +16,8 @@ function Login() {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  const handleUserTypeChange = (event) => {
-    setUserType(event.target.value);
+  const handleUserRoleChange = (event) => {
+    setUserRole(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -28,25 +28,31 @@ function Login() {
     if (validationErrors.email === '' && validationErrors.password === '') {
       try {
         const res = await axios.post('http://localhost:8080/api/auth/login', {
-          ...values,
-          userType: userType // Include userType in the request payload
+          email: values.email,
+          password: values.password,
+          userRole: userRole // Include userRole in the request payload
         });
 
         if (res.data.Status === 'Success') {
-          if (values.email === 'admin' && values.password === 'admin') {
-            if (userType === 'admin') {
-              localStorage.setItem('authenticatedUser', false);
-              localStorage.setItem('authenticatedAdmin', true);
-              alert("Admin Login Success");
-            } else {
-              localStorage.setItem('authenticatedUser', true);
-              alert("User Login Success");
-            }
+          // Authentication successful
+          if (userRole === 'admin') {
+            // Admin authentication logic
+            localStorage.setItem('authenticatedUser', false);
+            localStorage.setItem('authenticatedAdmin', true);
+            navigate('/adminregister');
+          } else {
+            // User authentication logic
+            localStorage.setItem('authenticatedUser', true);
+            localStorage.setItem('authenticatedAdmin', false);
+            alert("User Login Success");
           }
+        } else {
+          // Authentication failed
+          alert("Invalid credentials");
         }
       } catch (err) {
         console.log(err);
-        alert("Invalid user click ok to register");
+        alert("Invalid user, click OK to register");
         navigate('/signup');
       }
     }
@@ -84,26 +90,26 @@ function Login() {
               />
               {errors.password && <span className='text-danger'>{errors.password}</span>}
             </div>
-            <div className='col-12 mt-3'  >
-                <input 
-                  type='radio'
-                  id='user'
-                  name='userType'
-                  value='user'
-                  checked={userType === 'user'}
-                  onChange={handleUserTypeChange}
-                />
-                <label htmlFor='user'>User</label>
-                <input
-                  type='radio'
-                  id='admin'
-                  name='userType'
-                  value='admin'
-                  checked={userType === 'admin'}
-                  onChange={handleUserTypeChange}
-                />
-                <label htmlFor='admin'>Admin</label>
-              </div><br></br>
+            <div className='col-12 mt-3'>
+              <input
+                type='radio'
+                id='user'
+                name='userRole'
+                value='user'
+                checked={userRole === 'user'}
+                onChange={handleUserRoleChange}
+              />
+              <label htmlFor='user'>User</label>
+              <input
+                type='radio'
+                id='admin'
+                name='userRole'
+                value='admin'
+                checked={userRole === 'admin'}
+                onChange={handleUserRoleChange}
+              />
+              <label htmlFor='admin'>Admin</label>
+            </div><br></br>
             <div className='row'>
               <div className='col-4'>
                 <button type='submit' id='loginButton' className='btn btn-success w-100 rounded-0'>
@@ -115,7 +121,6 @@ function Login() {
                   Sign up
                 </Link>
               </div>
-           
               <Outlet />
             </div>
           </form>

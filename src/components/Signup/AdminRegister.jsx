@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import SignupAuth from '../Auth/SignupAuth';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
@@ -12,6 +12,18 @@ function AdminRegister() {
     userRole: '', // Use a single string to store selected role
     confirmPassword: ''
   });
+  useEffect(() => {
+		const isAuthenticated = localStorage.getItem('authenticatedAdmin');
+		if (isAuthenticated !== 'true') {
+		  navigate('/login');
+		}
+    // eslint-disable-next-line
+	  }, []);
+    function HandleLogout(){
+      navigate('/login');
+      localStorage.removeItem('authenticatedUser');
+      localStorage.removeItem('authenticatedAdmin');
+    }
 
   const navigate = useNavigate();
   const [errors, setError] = useState('');
@@ -48,6 +60,9 @@ function AdminRegister() {
     <>
       <div className='d-flex justify-content-center align-items-center p-4 w-100 signupHead'>
         <strong>Register</strong>
+        <Link to="/login">
+                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
+              </Link>
       </div>
       <br />
       <div className='d-flex justify-content-center align-items-center vh-90 SignupPage'>
