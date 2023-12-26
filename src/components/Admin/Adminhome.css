@@ -36,10 +36,11 @@
     }
   }
   .addpage{
-    background-color:grey;
+    background-color:white;
   }
   .addform{
-    background-color: white;
+    background-color: rgb(183, 181, 181);
+    width: calc();    
   }
   .body{
     background-color: grey;
@@ -79,7 +80,9 @@
     font-size: 20px;
     color: white;
   }
-
+  #addButton{
+    margin-left: 35%;
+  }
   .addAcademybutton {
     margin-right: 10px;
     color: #6050BF;
@@ -123,12 +126,13 @@
   }
   
   .templateContainer .template_Container .template {
-    background-color: white;
+    background-color:white;
     margin: 30px;
     padding: 0px 10px;
     height: 400px;
     flex-basis: calc(3% - 60px); /* Adjust the width as needed */
     border-radius: 6%;
+    border: 1px solid rgb(9, 0, 0);
   }
   .templateContainer .template_Container .template img{
     height: 250px;
@@ -136,23 +140,24 @@
     border-radius: 6%;
   }
   .templateContainer .template_Container .template .deleteButton {
-    padding: 10px;
+    padding: 0;
     background-color: white;
     font-size: 15px;
-    color: black;
+    color: red;
     border: black;
     margin-right:5%;
     margin-left:70%;
     cursor: pointer;
     }
     .templateContainer .template_Container .template .editButton {
-      padding: 10px;
+      padding: 0;
       font-size: 15px;
-      color: black;
+      color: blue;
       background-color: white;
       border: black;
       cursor: pointer;
       margin-bottom: 15%;
+      margin-left: 5%;
       }
       
       .templateContainer .template_Container .template1 {

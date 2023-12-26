@@ -9,7 +9,7 @@ function Adminhome() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(()=>{
-      axios.get('http://localhost:8080/api/Admin/getdetails')
+      axios.get('http://localhost:8080/api/Admin/getbooks')
       .then(res=>{
         if(res.data.Status==="Success"){
           console.log(res.data.Result)
@@ -36,12 +36,12 @@ function Adminhome() {
     event.preventDefault();
     // Filter the data based on the search query
     const filteredData = data.filter(item =>
-      item.academyName.toLowerCase().includes(searchQuery.toLowerCase())
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setData(filteredData);
   };
   const handleDelete = (id) => {
-    axios.delete('http://localhost:8080/api/Admin/deleteacademy/'+id)
+    axios.delete('http://localhost:8080/api/Admin/deletebook/'+id)
     .then(res => {
       if(res.data.Status === "Success") {
         window.location.reload(true);
@@ -78,14 +78,13 @@ function Adminhome() {
           </div>
           <Outlet />
         </nav>
-        <div></div>
       </div>
       <div className="templateContainer">
         <div className="searchInput_Container">
           <input
             id="searchInput"
             type="text"
-            placeholder="Type here to search Academy"
+            placeholder="Type here to search book"
             value={searchQuery}
             onChange={(event) => {
               setSearchQuery(event.target.value);
@@ -99,10 +98,11 @@ function Adminhome() {
               return (
                 <div className="template" key={val.id} id="AcademyGrid">
                   <img src={val.imageUrl} alt="" />
-                  <h3>{val.academyName}</h3>
-                  <p className="place">Place: {val.academyLocation} </p>
-                  <button onClick={e => handleDelete(val.id)} id="deleteAcademy" class="deleteButton" type="button"><FaTrash /></button>
-                  <Link to={`/editacademy/`+val.id} id="editAcademy" class="editButton" type="button"><FaEdit /></Link>
+                  <h3>{val.title}</h3>
+                  <p>Author: {val.author} </p>
+                  <p>Pages: {val.pages}  </p>
+                  <button onClick={e => handleDelete(val.id)} id="deletebook" class="deleteButton" type="button"><FaTrash /></button>
+                  <Link to={`/updatebook/`+val.id} id="updatebook" class="editButton" type="button"><FaEdit /></Link>
                 </div>
               );
             })

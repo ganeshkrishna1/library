@@ -58,13 +58,29 @@ function AdminRegister() {
 
   return (
     <>
-      <div className='d-flex justify-content-center align-items-center p-4 w-100 signupHead'>
-        <strong>Register</strong>
-        <Link to="/login">
-                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
-              </Link>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light mx-auto">
+      <div className="container-fluid">
+        <a className="nav-title">Library</a>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/adminregister" className="nav-link active" id='adminAcademy' aria-current="page">AddUser</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/adminbook" className="nav-link" id='adminCourse'>AddBook</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/Adminstudents" className="nav-link" id='adminStudents'>Dashboard</Link>
+            </li>
+            <li className="nav-item">
+            <Link to="/login" className="nav-link" id='adminStudents' onClick={HandleLogout}>Logout</Link>
+           </li>
+          </ul>
+         
+        </div>                
       </div>
-      <br />
+      <Outlet />
+    </nav>
       <div className='d-flex justify-content-center align-items-center vh-90 SignupPage'>
         <div className='p-1 rounded w-25 signupForm'>
           <form onSubmit={handleSubmit}>
