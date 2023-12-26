@@ -67,7 +67,7 @@ function Adminhome() {
                   <Link to="/adminbook" className="nav-link" id='adminCourse'>AddBook</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/Adminstudents" className="nav-link" id='adminStudents'>Dashboard</Link>
+                  <Link to="/admindashboard" className="nav-link" id='adminStudents'>Dashboard</Link>
                 </li>
                 <li className="nav-item">
                 <Link to="/login" className="nav-link" id='adminStudents' onClick={HandleLogout}>Logout</Link>

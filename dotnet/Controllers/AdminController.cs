@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Library.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] 
     [ApiController]
     public class AdminController : ControllerBase
     {
@@ -185,6 +185,43 @@ public IActionResult GetBookDetails(int id)
     catch (SqlException ex)
     {
         return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while fetching the book details. Details: {ex.Message}");
+    }
+}
+[HttpGet("getusers")]
+public IActionResult GetUsers()
+{
+    try
+    {
+        string query = "SELECT * FROM Login";
+
+        using (SqlCommand command = new SqlCommand(query, _connection))
+        {
+            _connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<UserModel> users = new List<UserModel>();
+
+            while (reader.Read())
+            {
+                UserModel user = new UserModel
+                {
+                    id = reader.GetInt32(reader.GetOrdinal("id")),
+                    userRole = reader.GetString(reader.GetOrdinal("userRole")),
+                    username = reader.GetString(reader.GetOrdinal("username")),
+                    email = reader.GetString(reader.GetOrdinal("email")),
+                    mobileNumber = reader.GetString(reader.GetOrdinal("mobileNumber")),
+                };
+
+                users.Add(user);
+            }
+
+            _connection.Close();
+            return Ok(new { Status = "Success", Result = users });
+        }
+    }
+    catch (SqlException ex)
+    {
+        return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while fetching the user details. Details: {ex.Message}");
     }
 }
 

@@ -149,6 +149,16 @@
     margin-left:70%;
     cursor: pointer;
     }
+ 
+    #adminDeleteBook{
+      padding: 0;
+      color: red ;
+      margin-left:15px;
+      border: none;
+      background-color: transparent;
+
+    }
+  
     .templateContainer .template_Container .template .editButton {
       padding: 0;
       font-size: 15px;
@@ -205,7 +215,7 @@
             }
             
             .gridTable th {
-              background-color: #1c823a;
+              background-color: #400000;
               color: white;
             }
             

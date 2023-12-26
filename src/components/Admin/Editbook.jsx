@@ -1,24 +1,23 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link, Outlet } from 'react-router-dom';
-import "./Adminhome.css";
-function Adminbook() {
-  const [values, setValues] = useState({
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+
+function EditBook() {
+  const [formValues, setFormValues] = useState({
     title: '',
     author: '',
     imageUrl: '',
-    pages: '',
+    pages: 0,
   });
 
-  const handleInput = (event) => {
-    setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-  };
+  const navigate = useNavigate();
+  const { id } = useParams();
   function HandleLogout(){
     navigate('/login');
     localStorage.removeItem('authenticatedUser');
     localStorage.removeItem('authenticatedAdmin');
   }
-  const navigate = useNavigate();
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('authenticatedAdmin');
@@ -27,14 +26,37 @@ function Adminbook() {
     }
   }, []);
 
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/api/Admin/getdetails/' + id)
+      .then((res) => {
+        if (res.data.Status === 'Success') {
+          const book = res.data.Result;
+
+          setFormValues({
+            title: book.title,
+            author: book.author,
+            imageUrl: book.imageUrl,
+            pages: book.pages,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
+
+  const handleInput = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('http://localhost:8080/api/Admin/addbook', values)
+      .put('http://localhost:8080/api/admin/updatebook/' + id, formValues)
       .then((res) => {
         navigate('/adminhome');
       })
-      .catch((err) => console.error(err.response));
+      .catch((err) => console.log(err));
   };
 
   function handleLogout() {
@@ -44,7 +66,7 @@ function Adminbook() {
   }
 
   return (
-    <div className='body'>
+<div className='body'>
     <nav className="navbar navbar-expand-lg navbar-light bg-light mx-auto">
       <div className="container-fluid">
         <a className="nav-title">Library</a>
@@ -70,15 +92,16 @@ function Adminbook() {
     </nav>
       <div className="d-flex justify-content-center align-items-center vh-100 addpage">
         <div className="p-1 rounded w-25 border addform">
-          <h2>Add Book</h2>
+          <h2>Update Book Details</h2><br></br>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <input
                 type="text"
+                value={formValues.title}
                 className="form-control"
-                id="title"
+                id="editTitle"
                 name="title"
-                placeholder="Enter book title"
+                placeholder="Enter Book Title"
                 autoComplete="off"
                 onChange={handleInput}
               />
@@ -86,10 +109,11 @@ function Adminbook() {
             <div className="mb-3">
               <input
                 type="text"
+                value={formValues.author}
                 className="form-control"
-                id="author"
+                id="editAuthor"
                 name="author"
-                placeholder="Enter the author name"
+                placeholder="Enter Author Name"
                 autoComplete="off"
                 onChange={handleInput}
               />
@@ -97,30 +121,33 @@ function Adminbook() {
             <div className="mb-3">
               <input
                 type="url"
+                value={formValues.imageUrl}
                 className="form-control"
-                id="imageUrl"
+                id="editImageUrl"
                 name="imageUrl"
-                placeholder="Enter the book image Url"
+                placeholder="Enter Image Url"
                 autoComplete="off"
-                required
                 onChange={handleInput}
               />
             </div>
-    
             <div className="mb-3">
               <input
-                type="text"
+                type="number"
+                value={formValues.pages}
                 className="form-control"
-                id="pages"
+                id="editPages"
                 name="pages"
-                required
-                placeholder="Enter no. of pages"
+                placeholder="Enter Number of Pages"
                 onChange={handleInput}
               />
             </div>
-                  <div className="mb-3">
-              <button type="submit" id="addButton" className="btn btn-success w-10">
-                Add Book
+            <div className="mb-3">
+              <button
+                type="submit"
+                id="updateButton"
+                className="btn btn-success w-10"
+              >
+                Update Book
               </button>
             </div>
           </form>
@@ -130,4 +157,4 @@ function Adminbook() {
   );
 }
 
-export default Adminbook;
+export default EditBook;
