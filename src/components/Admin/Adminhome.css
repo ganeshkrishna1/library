@@ -1,0 +1,233 @@
+.Adminacademy {
+    text-align: center;
+  }
+  
+  .Adminacademy-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .Adminacademy-logo {
+      animation: Adminacademy-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .Adminacademy-header {
+    background-color: #282c34;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Adminacademy-link {
+    color: #61dafb;
+  }
+  
+  @keyframes Adminacademy-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .addpage{
+    background-color:grey;
+  }
+  .addform{
+    background-color: white;
+  }
+  .body{
+    background-color: grey;
+  }
+  .container-fluid {
+    background-color: #400000;
+  
+  }
+.nav-title{
+    color: white;
+    text-decoration: none;
+    font-size: 150%;
+}
+
+.nav-link:hover {
+    color: #ff5733; 
+    transform: scale(1.2); /* Scale the element on hover */
+    transition: transform 0.3s ease; /* Add a smooth transition for the scaling effect */
+}
+
+.navbar-nav{
+    margin-left:70%;
+    gap:5%;
+}
+  
+  #adminAcademy{
+    font-size: 20px;
+    color: white;
+  
+  }
+  #adminCourse{
+    font-size: 20px;
+    color: white;
+  
+  }
+  #adminStudents{
+    font-size: 20px;
+    color: white;
+  }
+
+  .addAcademybutton {
+    margin-right: 10px;
+    color: #6050BF;
+  }
+  .center-form{
+    justify-content: center;
+    display: flex;
+    border-radius: 0;
+    margin: 30px 300px;
+    padding: 30px;   
+  }
+  .form-control{
+    border-radius: 0;
+    justify-content: center;
+  }
+  
+  #searchButton{
+    background-color: #6050BF;
+    border-radius: 0;
+  }
+  .templateContainer{
+    margin: 5% 0;
+  }
+  .templateContainer > .searchInput_Container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .templateContainer > .searchInput_Container input{
+    width: 50%;
+    padding: 10px;
+    outline: none;
+  }
+  .templateContainer .template_Container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  
+  .templateContainer .template_Container .template {
+    background-color: white;
+    margin: 30px;
+    padding: 0px 10px;
+    height: 400px;
+    flex-basis: calc(3% - 60px); /* Adjust the width as needed */
+    border-radius: 6%;
+  }
+  .templateContainer .template_Container .template img{
+    height: 250px;
+    padding: 10px 0px;
+    border-radius: 6%;
+  }
+  .templateContainer .template_Container .template .deleteButton {
+    padding: 10px;
+    background-color: white;
+    font-size: 15px;
+    color: black;
+    border: black;
+    margin-right:5%;
+    margin-left:70%;
+    cursor: pointer;
+    }
+    .templateContainer .template_Container .template .editButton {
+      padding: 10px;
+      font-size: 15px;
+      color: black;
+      background-color: white;
+      border: black;
+      cursor: pointer;
+      margin-bottom: 15%;
+      }
+      
+      .templateContainer .template_Container .template1 {
+        background-color: white;
+        margin: 30px;
+        padding: 10px 20px;
+        flex-basis: calc(60% - 60px); /* Adjust the width as needed */
+      }
+      #deleteCourse{
+        background-color: white;
+        padding: 10px;
+        font-size: 15px;
+        color: black;
+        border: black;
+        margin-left:90%;
+        cursor: pointer;
+        }
+        #editCourse {
+          background-color: white;
+          padding: 10px;
+          font-size: 15px;
+          color: black;
+          border: black;
+          cursor: pointer;
+          margin-left:1%;
+          }
+          #enrollCourse {
+            background-color: rgb(59, 255, 59);
+            padding: 10px;
+            font-size: 15px;
+            margin-left:89%;
+            color: black;
+            border: black;
+            cursor: pointer;
+            }
+            .gridTable {
+              width: 99%;
+              border-collapse: collapse;
+            }
+            
+            .gridTable th,
+            .gridTable td {
+              padding: 8px;
+              text-align: center  ;
+            }
+            
+            .gridTable th {
+              background-color: #1c823a;
+              color: white;
+            }
+            
+            .gridTable tbody tr:nth-child(even) {
+              background-color: rgb(174, 171, 171);
+            }
+            
+            .gridTable tbody tr:nth-child(odd) {
+              background-color: #ffffff;
+            }
+            #adminDeleteStudent{
+              background-color: transparent;
+              padding: 10px;
+              font-size: 15px;
+              color: black;
+              border: black;
+              margin-right:5%;
+              cursor: pointer;
+              }
+              #adminEditStudent {
+                padding: 10px;
+                font-size: 15px;
+                color: black;
+                margin-right: 2%;
+                border: black;
+                cursor: pointer;
+                }
+            
+  
+           
