@@ -5,6 +5,7 @@ import AdminRegister from "./components/Signup/AdminRegister"
 import Adminhome from "./components/Admin/Adminhome"
 import Adminbook from "./components/Admin/Adminbook"
 import EditBook from "./components/Admin/Editbook"
+import Cart from "./components/Home/Cart"
 import "./components/Signup/Signup.css"
 import AdminUsers from "./components/Admin/Admindashboard"
 import "./components/Login/Login.css"
@@ -23,6 +24,7 @@ function App() {
           <Route path='/adminbook' element={<Adminbook />}></Route>
           <Route path='/updatebook/:id' element={<EditBook />}></Route>
           <Route path='/admindashboard' element={<AdminUsers />}></Route>
+          <Route path='/cart' element={<Cart />}></Route>
         </Routes>
     </BrowserRouter>
   );

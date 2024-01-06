@@ -253,6 +253,41 @@ public IActionResult GetUsers()
             }
         }
 
+[HttpGet("getcart")]
+public IActionResult GetCart()
+{
+    try
+    {
+        string query = "SELECT * FROM Cart";
+
+        using (SqlCommand command = new SqlCommand(query, _connection))
+        {
+            _connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<CartModel> cartItems = new List<CartModel>();
+
+            while (reader.Read())
+            {
+                CartModel cartItem = new CartModel
+                {
+                    ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                    Title = reader.GetString(reader.GetOrdinal("Title")),
+                    BookID = reader.GetInt32(reader.GetOrdinal("BookID"))
+                };
+
+                cartItems.Add(cartItem);
+            }
+
+            _connection.Close();
+            return Ok(new { Status = "Success", Result = cartItems });
+        }
+    }
+    catch (SqlException ex)
+    {
+        return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while fetching the cart details");
+    }
+}
 
 
        
