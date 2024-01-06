@@ -48,7 +48,6 @@ namespace Library.Controllers
             }
             catch (SqlException ex)
             {
-                                Console.WriteLine(ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while registering user");
             }
         }
@@ -96,7 +95,6 @@ public IActionResult Login(LoginModel loginModel)
         return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while logging in");
     }
 }
-
 
     }
 }

@@ -158,6 +158,28 @@
       background-color: transparent;
 
     }
+    .template {
+      position: relative;
+    }
+    
+    #addcart {
+      position: absolute;
+      bottom: 10px; /* Adjust the distance from the bottom as needed */
+      left: 77%;
+      transform: translateX(-50%);
+      color: white;
+      background-color: blue;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    #addcart:hover {
+      background-color: darkblue;
+    }
+    
+    
   
     .templateContainer .template_Container .template .editButton {
       padding: 0;

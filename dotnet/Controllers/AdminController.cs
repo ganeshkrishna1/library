@@ -224,6 +224,34 @@ public IActionResult GetUsers()
         return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while fetching the user details. Details: {ex.Message}");
     }
 }
+ [HttpPost("addcart")]
+        public IActionResult Addcart(CartModel cartModel)
+        {
+            try
+            {
+                string query = "INSERT INTO Cart (Title, BookID) " +
+                               "VALUES (@Title, @BookID)";
+
+                using (SqlCommand command = new SqlCommand(query, _connection))
+                {
+                    command.Parameters.AddWithValue("@Title", cartModel.Title);
+                    command.Parameters.AddWithValue("@BookID", cartModel.BookID);
+           
+                    _connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    _connection.Close();
+
+                    if (rowsAffected > 0)
+                        return Ok("Added to cart successfully");
+                    else
+                        return BadRequest("Failed to add ");
+                }
+            }
+            catch (SqlException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
 
 
 

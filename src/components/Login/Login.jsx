@@ -39,7 +39,7 @@ function Login() {
             // Admin authentication logic
             localStorage.setItem('authenticatedUser', false);
             localStorage.setItem('authenticatedAdmin', true);
-            navigate('/adminregister');
+            navigate('/adminhome');
           } else {
             // User authentication logic
             localStorage.setItem('authenticatedUser', true);
